@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.Conexion;
 import com.GuardarDB;
@@ -19,9 +20,10 @@ import com.Lluvia;
 
 @RestController
 @RequestMapping("/")
+
 public class Controller {
 	@RequestMapping(value="obtenerclima", method=RequestMethod.GET)	
-	public ResponseEntity<Object> obtenerClima(/*@PathParam("dia") Integer dia*/) throws SQLException {
+	public ResponseEntity<Object> obtenerClima(@PathParam("dia") Integer dia) throws SQLException {
 	    Conexion conexion =new Conexion();
         Connection con = null;
          try {
@@ -32,7 +34,7 @@ public class Controller {
              Logger.getLogger(Lluvia.class.getName()).log(Level.SEVERE, null, ex);
          }
                       GuardarDB guardarDB=new GuardarDB();
-                     String EstadoConsultado=guardarDB.consultarPronostico(con, 109);
+                     String EstadoConsultado=guardarDB.consultarPronostico(con, dia);
 		
 		
 		return new ResponseEntity<>(EstadoConsultado,  HttpStatus.OK);

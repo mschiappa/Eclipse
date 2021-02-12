@@ -1,19 +1,35 @@
-package com;
+package com.controller;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import javax.websocket.server.PathParam;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication
-public class MarianoApplication {
+import com.Alineacion;
+import com.Conexion;
+import com.ConocerLluvia;
+import com.GuardarDB;
+import com.Lluvia;
+import com.Planetas;
+import com.PresionTemperatura;
+@RestController
+@RequestMapping("/job")
 
-	public static void main(String[] args) throws SQLException {
+
+public class Job {
+
+	@RequestMapping(value="calcularPronostico", method=RequestMethod.PUT)	
+		
+			public  void calcularPronostico() throws SQLException {
 		 int diasSequia;
 	        Planetas Vulcano = new Planetas (-5,1000, "Vulcano");
 	        Planetas Ferengis  = new Planetas (1,500, "Ferengis");
@@ -28,8 +44,8 @@ public class MarianoApplication {
 	               
 	            }
 	         GuardarDB guardarDB=new GuardarDB();
-	     //   guardarDB.consultarPronostico(con, 109);
-	   /*     guardarDB.limpiarPronostico(con);
+	        guardarDB.consultarPronostico(con, 109);
+	       guardarDB.limpiarPronostico(con);
 	          guardarDB.completarPronostico(con);
 	        //calculo de Sequia
 	        Alineacion sequia = new Alineacion ();
@@ -63,12 +79,16 @@ public class MarianoApplication {
 	      //  ConocerLluvia infoLLuvia= new ConocerLluvia();
 	        PresionYTemp=PresyT.presionTemperatura(cantDiasT);
 	        System.out.println("Se pronostica existiran "+ PresionYTemp+ " "
-	                + "periodos de optima temperatura y presion .");*/
-	
-	        SpringApplication.run(MarianoApplication.class, args);
+	                + "periodos de optima temperatura y presion .");
+				
+				
+				//return new ResponseEntity<>(EstadoConsultado,  HttpStatus.OK);
+	       // return "OK";		
 	}
-	    
+			
 		
+		// TODO Auto-generated method stub
+
 	}
 
 
